@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: shipnote
+    runtime: node
+    plan: starter
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm start
+    healthCheckPath: /health
+    disk:
+      name: shipnote-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_FILE
+        value: /var/data/shipnote.json
+      - key: APP_URL
+        sync: false
